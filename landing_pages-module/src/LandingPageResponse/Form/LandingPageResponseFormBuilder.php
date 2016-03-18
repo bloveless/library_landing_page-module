@@ -15,9 +15,9 @@ class LandingPageResponseFormBuilder extends FormBuilder
     /**
      * The form handler.
      *
-     * @var ContactFormHandler
+     * @var LandingPageResopnseFormHandler
      */
-    protected $handler = ContactFormHandler::class;
+    protected $handler = LandingPageResponseFormHandler::class;
 
     /**
      * The form fields.
@@ -83,7 +83,7 @@ class LandingPageResponseFormBuilder extends FormBuilder
      */
     protected $actions = [
         'submit' => [
-            'redirect' => false
+            'redirect' => '/info/landing-pages/thank-you'
         ]
     ];
 

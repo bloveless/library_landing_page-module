@@ -1,10 +1,7 @@
 <?php namespace Fritzandandre\LandingPagesModule\LandingPageResponse\Form;
 
-use Anomaly\Streams\Platform\Message\MessageBag;
+use Fritzandandre\LandingPagesModule\LandingPageResponse\LandingPageResponseModel;
 use Illuminate\Contracts\Bus\SelfHandling;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Mail\Mailer;
-use Illuminate\Mail\Message;
 
 /**
  * Class LandingPageResponseFormHandler
@@ -17,23 +14,40 @@ use Illuminate\Mail\Message;
 class LandingPageResponseFormHandler implements SelfHandling
 {
 
-    use DispatchesJobs;
-
     /**
+     * Save the response to the LandingPageResponseModel
+     *
      * @param LandingPageResponseFormBuilder $builder
-     * @param MessageBag                     $messages
-     * @param Mailer                         $mailer
      */
-    public function handle(LandingPageResponseFormBuilder $builder, MessageBag $messages, Mailer $mailer)
+    public function handle(LandingPageResponseFormBuilder $builder)
     {
         // Validation failed!
         if ($builder->hasFormErrors()) {
             return;
         }
-        
+
+        $formData = $builder->getFormInput();
+       
+        $wishList = $formData['wish_list'];
+        unset($formData['wish_list']);
+
+        $landingPageResponse = LandingPageResponseModel::create($formData);
+
+        // The first wish will always be present
+        $landingPageResponse->first_wish = array_shift($wishList);
+
+        // If there was more than one then save off the second wish
+        if (count($wishList) > 0) {
+            $landingPageResponse->second_wish = array_shift($wishList);
+        }
+
+        // Anything left over will be imploded as the rest of the list
+        if (count($wishList) > 0) {
+            $landingPageResponse->rest_of_list = implode(',', $wishList);
+        }
+
+        $landingPageResponse->save();
+
         // Example email code is found in the ContactPlugin
-        
-        // Clear the form!
-        $builder->resetForm();
     }
 }
