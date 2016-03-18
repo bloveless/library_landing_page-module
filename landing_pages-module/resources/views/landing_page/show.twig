@@ -1,0 +1,17 @@
+{% extends 'fritzandandre.theme.numeat::layouts.default_no_menu' %}
+
+{% block pageTitle %}
+    {{ landingPage.name }}
+{% endblock %}
+
+{% block editLink %}
+    /admin/landing_pages/edit/{{ landingPage.id }}
+{% endblock %}
+
+{% block content %}
+
+    <h1>Landing Page</h1>
+
+    {{ landing_page_form() }}
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'fritzandandre.theme.numeat::layouts.default' %}
+
+{% block editLink %}
+    /admin/library
+{% endblock %}
+
+{% block pageTitle %}
+    Library
+{% endblock %}
+
+{% block content %}
+
+    <h1>Library</h1>
+
+    <div class="padding-top articles-container padding-bottom">
+        <h3>Articles</h3>
+        <ul>
+            {% for article in articles %}
+                <li><a href="/library/{{ article.slug }}">{{ article.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="ebooks-container padding-bottom">
+        <h3>eBooks</h3>
+
+        <ul>
+            {% for ebook in ebooks %}
+
+                <a href="/info/{{ ebook.landing_page.slug }}">
+                    {{ img(ebook.ebook_image) }}
+                    {{ ebook.cta }}
+                </a>
+
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}

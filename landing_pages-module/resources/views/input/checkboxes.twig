@@ -1,0 +1,19 @@
+{% for row in field_type.options|batch(3) %}
+    <div class="row">
+        {% for value, option in row %}
+            <div class="col-md-4">
+                <label class="c-input c-checkbox">
+                    <input
+                            type="checkbox"
+                            value="{{ value }}"
+                            name="{{ field_type.input_name }}[]"
+                            {{ value in field_type.config.disabled ? 'disabled' }}
+                            {{ value in field_type.value ? 'checked' }}>
+                    <span class="c-indicator"></span>
+
+                    {{ trans(option) }}
+                </label>
+            </div>
+        {% endfor %}
+    </div>
+{% endfor %}

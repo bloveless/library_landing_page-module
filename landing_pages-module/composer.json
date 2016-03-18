@@ -1,0 +1,8 @@
+{
+  "name": "fritzandandre/landing_pages-module",
+  "autoload": {
+    "psr-4": {
+      "Fritzandandre\\LandingPagesModule\\": "src/"
+    }
+  }
+}

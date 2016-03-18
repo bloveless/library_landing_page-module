@@ -1,0 +1,8 @@
+{
+  "name": "fritzandandre/library-module",
+  "autoload": {
+    "psr-4": {
+      "Fritzandandre\\LibraryModule\\": "src/"
+    }
+  }
+}
